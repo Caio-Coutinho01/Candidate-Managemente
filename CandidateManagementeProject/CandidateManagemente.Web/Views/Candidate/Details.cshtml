@@ -1,0 +1,89 @@
+﻿@model List<CandidateManagemente.Web.ViewModel.CandidateCompleteVM>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>View</h1>
+@foreach (var item in Model) {
+<div>
+    <h4>CandidateCompleteVM</h4>
+    <hr />
+    
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.Surname)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.Surname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.BirthDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.BirthDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.Company)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.Company)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.Job)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.Job)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.Salary)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.Salary)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.BeginDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.BeginDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => item.EndDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => item.EndDate)
+        </dd>
+    </dl>
+  
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@item.IdCandidate"><button type="button" class="btn btn-primary">Edit</button></a> |
+    <a asp-action="Index"><button type="button" class="btn btn-primary">Back to list</button></a>
+
+</div>
+}
+
+<script type="module">
+  import { Toast } from 'bootstrap.esm.min.js'
+
+  Array.from(document.querySelectorAll('.toast'))
+    .forEach(toastNode => new Toast(toastNode))
+</script>
