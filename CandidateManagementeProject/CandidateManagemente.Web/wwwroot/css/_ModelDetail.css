@@ -1,0 +1,22 @@
+﻿h2.with-lines {
+    position: relative;
+    padding: 10px 0;
+}
+
+h2.with-lines:before,
+h2.with-lines:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ccc;
+}
+
+h2.with-lines:before {
+    top: 0;
+}
+
+h2.with-lines:after {
+    bottom: 0;
+}

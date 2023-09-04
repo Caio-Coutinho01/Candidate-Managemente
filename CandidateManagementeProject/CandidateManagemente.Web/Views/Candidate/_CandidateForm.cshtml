@@ -1,0 +1,68 @@
+﻿@model CandidateManagemente.Web.ViewModel.CandidateCompleteVM
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="column">
+    <div class="form-floating mb-3">
+        <input asp-for="Name" class="form-control" id="Name" placeholder="Name">
+        <label for="Name">Name</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Surname" class="form-control" id="Surname" placeholder="Surname">
+        <label for="Surname">Surname</label>
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="BirthDate" class="form-control" id="BirthDate" placeholder="BirthDate">
+        <label for="BirthDate">Birth Date</label>
+        <span asp-validation-for="BirthDate" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Email" class="form-control" id="Email" placeholder="Email">
+        <label for="Email">Email</label>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Company" class="form-control" id="Company" placeholder="Company">
+        <label for="Company">Company</label>
+        <span asp-validation-for="Company" class="text-danger"></span>
+    </div>
+</div>
+<div class="column">
+    <div class="form-floating mb-3">
+        <input asp-for="Job" class="form-control" id="Job" placeholder="Job">
+        <label for="Job">Job</label>
+        <span asp-validation-for="Job" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Description" class="form-control" id="Description" placeholder="Description">
+        <label for="Description">Description</label>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Salary" class="form-control" id="Salary" placeholder="Salary">
+        <label for="Salary">Salary</label>
+        <span asp-validation-for="Salary" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="BeginDate" class="form-control" id="BeginDate" placeholder="BeginDate">
+        <label for="BeginDate">Begin Date</label>
+        <span asp-validation-for="BeginDate" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="EndDate" class="form-control" id="EndDate" placeholder="EndDate">
+        <label for="EndDate">End Date</label>
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>
+            @Html.CheckBoxFor(m => m.CurrentJob, new { @class = "btn-check", id = "btnCurrentJob", autocomplete = "off", onclick = "toggleEndDate()" })
+            <label class="btn btn-outline-primary" for="btnCurrentJob">Current job</label>
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <input type="submit" value="@ViewBag.SubmitButtonText" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

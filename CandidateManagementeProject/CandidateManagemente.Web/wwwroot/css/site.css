@@ -1,18 +1,80 @@
+/* Reset & Font Size Settings */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #F5F5F5; /* Cinza Suave para o fundo */
+    color: #333333; /* Cinza Escuro para o texto */
 }
+
+/* Primary Buttons */
+button.primary, .btn-primary {
+    background-color: #003366; /* Azul Profundo */
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+    button.primary:hover, .btn-primary:hover {
+        background-color: #0066CC; /* Azul Claro */
+    }
+
+/* Secondary Buttons */
+button.secondary, .btn-secondary {
+    border: 1px solid #003366; /* Borda de Azul Profundo */
+    background-color: transparent;
+    color: #003366;
+    padding: 9px 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+    button.secondary:hover, .btn-secondary:hover {
+        background-color: #0066CC; /* Azul Claro */
+        color: #FFFFFF;
+    }
+
+/* Critical Buttons */
+button.alert, .btn-alert {
+    background-color: #CC0000; /* Vermelho */
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+    button.alert:hover, .btn-alert:hover {
+        background-color: #990000; /* Vermelho Escuro */
+    }
+
+/* Dropdowns & Input Fields */
+select, input[type="text"], textarea {
+    border: 1px solid #cccccc; /* Borda cinza clara */
+    padding: 10px;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+        border-color: #0066CC; /* Azul Claro para o foco */
+        outline: none;
+    }
+
+/* Error Messages */
+.error-message {
+    color: #CC0000; /* Vermelho para mensagens de erro */
+}
+

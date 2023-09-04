@@ -42,8 +42,16 @@ namespace CandidateManagemente.Web.Controllers
         public async Task<IActionResult> Details([FromQuery] GetCandidateDetail getCandidateId, int Id)
         {
             getCandidateId.Id = Id;
-            return View(_mapper.Map<List<CandidateCompleteVM>>(await _mediator.Send(getCandidateId)));
+            var result = _mapper.Map<List<CandidateCompleteVM>>(await _mediator.Send(getCandidateId)).FirstOrDefault();
+
+            if (result != null)
+            {
+                return PartialView("_DetailsPartial", result);
+            }
+
+            return NotFound();
         }
+
 
         public IActionResult Create()
         {

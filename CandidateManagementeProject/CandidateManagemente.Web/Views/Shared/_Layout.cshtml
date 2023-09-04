@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CandidateManagemente.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CandidateManagemente.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/my-login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <header>
@@ -32,15 +34,14 @@
             @RenderBody()
         </main>
     </div>
-
-@*    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - CandidateManagemente.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/my-login.js"></script>
+    <script src="~/js/input-page-layout.js"></script>
+
+    @await Html.PartialAsync("_ValidationScriptsPartial");
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

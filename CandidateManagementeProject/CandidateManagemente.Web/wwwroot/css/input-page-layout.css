@@ -1,0 +1,19 @@
+﻿.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+form{
+    display:contents !important
+}
+
+label{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight:500;
+}

@@ -1,0 +1,41 @@
+﻿@model CandidateManagemente.Web.ViewModel.CandidateCompleteVM
+
+
+<div class="container">
+    <link rel="stylesheet" href="~/css/_ModelDetail.css">
+    <div class="card">
+        <div class="card-body card-body-custom">
+            <h2>Personal Data</h2>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Name:</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+
+                <dt class="col-sm-3">Surname:</dt>
+                <dd class="col-sm-9">@Model.Surname</dd>
+
+                <dt class="col-sm-3">BirthDate:</dt>
+                <dd class="col-sm-9">@Model.BirthDate.ToShortDateString()</dd>
+
+                <dt class="col-sm-3">Email:</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+            </dl>
+
+            <h2 class="with-lines">Business Data</h2>
+            <dl class="row">
+                <dt class="col-sm-3">Job:</dt>
+                <dd class="col-sm-9">@Model.Job</dd>
+
+                <dt class="col-sm-3">Company:</dt>
+                <dd class="col-sm-9">@Model.Company</dd>
+
+                <dt class="col-sm-3">Salary:</dt>
+                <dd class="col-sm-9">@Model.Salary</dd>
+
+                <dt class="col-sm-4">Description:</dt>
+                <dd class="col-sm-8">@Model.Description</dd>
+            </dl>
+
+        </div>
+    </div>
+</div>

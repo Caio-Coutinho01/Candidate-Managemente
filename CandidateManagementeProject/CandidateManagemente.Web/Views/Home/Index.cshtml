@@ -2,6 +2,7 @@
 @model LoginRequest
 
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Home Page";
 }
 
@@ -11,10 +12,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>My Login Page</title>
-    <link rel="stylesheet" href="~/css/bootstrap.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="~/css/my-login.css">
 </head>
 
 <body class="my-login-page">
@@ -71,16 +68,5 @@
             </div>
         </div>
     </section>
-
-    <script src="~/js/jquery.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="~/js/popper.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="~/js/bootstrap.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" 
-            crossorigin="anonymous"></script>
-    <script src="~/js/my-login.js"></script>
 </body>
 </html>

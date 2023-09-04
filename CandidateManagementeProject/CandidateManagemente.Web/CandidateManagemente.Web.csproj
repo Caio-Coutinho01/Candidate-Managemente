@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\img\logo.jpg" />
+    <None Include="wwwroot\js\candidate-details.js" />
     <None Include="wwwroot\js\my-login.js" />
   </ItemGroup>
 

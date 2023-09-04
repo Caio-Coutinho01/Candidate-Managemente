@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<CandidateManagemente.Application.DTO.CandidatesDto>
 
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Index";
 }
 
@@ -8,40 +9,39 @@
 <html>
 <head>
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/bootstrap.css">
     <link rel="stylesheet" href="~/css/table.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-        <div class="container">
-            <p><a asp-action="Create"><input type="button" class="btn btn-primary float-right" value="Create New"></a></p>
-            <h2 class="font-weight-bold">List of candidates</h2>
-            <ul class="responsive-table">
-                <li class="table-header">
-                    <div class="col">First Name</div>
-                    <div class="col">Last Name</div>
-                    <div class="col">BirthDate</div>
-                    <div class="col">Email</div>
-                    <div class="col">Actions</div>
+    <div class="container">
+        <a asp-action="Create" class="btn btn-primary float-right">Create New</a>
+        <h2 class="font-weight-bold">List of candidates</h2>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col">First Name</div>
+                <div class="col">Last Name</div>
+                <div class="col">BirthDate</div>
+                <div class="col">Email</div>
+                <div class="col">Actions</div>
+            </li>
+            @foreach (var d in Model)
+            {
+                <li class="table-row">
+                    <div class="col" data-label="First Name">@d.Name</div>
+                    <div class="col" data-label="Last Name">@d.Surname</div>
+                    <div class="col" data-label="BirthDate">@d.BirthDate</div>
+                    <div class="col" data-label="Email">@d.Email</div>
+                    <div class="col" data-label="Actions">
+                        <a asp-action="Edit" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-pen-to-square mr-2" title="Edit"></i></a>
+                        <a href="@Url.Action("Details", new { id = d.IdCandidate })" class="modal-link" data-modal-title="Candidate Details">
+                            <i class="fa-solid fa-circle-info mr-2" title="Detail"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-trash mr-2" title="Delete"></i></a>
+                    </div>
                 </li>
-                @foreach (var d in Model)
-                {
-                    <li class="table-row">
-                        <div class="col" data-label="First Name">@d.Name</div>
-                        <div class="col" data-label="Last Name">@d.Surname</div>
-                        <div class="col" data-label="BirthDate">@d.BirthDate</div>
-                        <div class="col" data-label="Email">@d.Email</div>
-                        <div class="col" data-label="Actions">
-                            <a asp-action="Edit" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-pen-to-square mr-2" title="Edit"></i></a>
-                            <a asp-action="Details" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-circle-info mr-2" title="Detail"></i></a>
-                            <a asp-action="Delete" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-trash mr-2" title="Delete"></i></a>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
-
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
+            }
+        </ul>
+        @await Html.PartialAsync("_ModalGeneric")
+    </div>
+    <script src="~/js/candidate-details.js"></script>
 </body>
 </html>

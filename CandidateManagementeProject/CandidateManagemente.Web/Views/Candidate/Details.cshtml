@@ -1,10 +1,29 @@
 ﻿@model List<CandidateManagemente.Web.ViewModel.CandidateCompleteVM>
 
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Details";
 }
 
-<h1>View</h1>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailsModalLabel">Candidate Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @Html.Partial("_PartialView", Model)
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @foreach (var item in Model) {
 <div>
     <h4>CandidateCompleteVM</h4>
@@ -79,11 +98,12 @@
     <a asp-action="Index"><button type="button" class="btn btn-primary">Back to list</button></a>
 
 </div>
+
 }
-
-<script type="module">
-  import { Toast } from 'bootstrap.esm.min.js'
-
-  Array.from(document.querySelectorAll('.toast'))
-    .forEach(toastNode => new Toast(toastNode))
-</script>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#detailsModal').modal('show');
+        });
+    </script>
+}
