@@ -5,22 +5,18 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using CandidateManagemente.Application.Commands.Authentication;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using CandidateManagemente.Application.Commands.Users;
+using CandidateManagemente.Domain.Entities;
 
 namespace CandidateManagemente.Web.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
     public class AuthController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly MyCustomDbContext _dbContext;
 
-        public AuthController(MyCustomDbContext dbContext, IMediator mediator)
+        public AuthController(IMediator mediator)
         {
-            _dbContext = dbContext;
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
@@ -48,9 +44,19 @@ namespace CandidateManagemente.Web.Controllers
             }
             else
             {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, model.Email),
+                    new Claim(ClaimTypes.Name, result.Name),
+                    new Claim("IdUser", result.IdUser.ToString())
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
                 return RedirectToAction("Index", "Candidate");
             }
-
         }
 
         [HttpPost("register")]
@@ -66,7 +72,22 @@ namespace CandidateManagemente.Web.Controllers
 
             var result = await _mediator.Send(command);
 
-            TempData["Message"] = result.Message;
+            if (!result.IsSuccess)
+            {
+                TempData["Message"] = result.Message;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["Message"] = result.Message;
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
         }

@@ -1,19 +1,16 @@
 ﻿using AutoMapper;
 using CandidateManagemente.Application.Commands.Candidates;
-using CandidateManagemente.Application.DTO;
 using CandidateManagemente.Application.Queries.Candidates;
-using CandidateManagemente.Domain.Entities;
-using CandidateManagemente.Infra.Data.Repositories;
 using CandidateManagemente.Web.ViewModel;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CandidateManagemente.Web.Controllers
 {
-    //[Route("api/[controller]")]
     public class CandidateController : Controller
     {
-        private readonly CandidateRepository _candidareRepository = new CandidateRepository();
         private readonly IMediator _mediator;
         IMapper _mapper;
 
@@ -38,7 +35,6 @@ namespace CandidateManagemente.Web.Controllers
 
         }
 
-        // GET: CandidateController/Details/5
         public async Task<IActionResult> Details([FromQuery] GetCandidateDetail getCandidateId, int Id)
         {
             getCandidateId.Id = Id;
@@ -58,13 +54,15 @@ namespace CandidateManagemente.Web.Controllers
             return View();
         }
 
-        // POST: CandidateController/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddCandidateCommand command)
         {
             try
             {
+                var idUser = HttpContext.User.FindFirst("IdUser").Value;
+                command.IdUser = int.Parse(idUser);
                 var request = await _mediator.Send(command);
                 return RedirectToAction(nameof(Index));
             }
@@ -74,7 +72,6 @@ namespace CandidateManagemente.Web.Controllers
             }
         }
 
-        // GET: CandidateController/Edit/5
         public async Task<IActionResult> Edit( int Id)
         {
             GetCandidateDetail getCandidateId = new GetCandidateDetail();
@@ -83,7 +80,6 @@ namespace CandidateManagemente.Web.Controllers
             return View(_mapper.Map<CandidateCompleteVM>(convertListToVM.FirstOrDefault()));
         }
 
-        // POST: CandidateController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UpdateCandidateCommand command, int id)
@@ -100,7 +96,6 @@ namespace CandidateManagemente.Web.Controllers
             }
         }
 
-        // GET: CandidateController/Delete/5
         public async Task<IActionResult> Delete(int Id)
         {
             GetCandidateDetail getCandidateId = new GetCandidateDetail();
@@ -108,7 +103,6 @@ namespace CandidateManagemente.Web.Controllers
             return View(_mapper.Map<List<CandidateCompleteVM>>(await _mediator.Send(getCandidateId)));
         }
 
-        // POST: CandidateController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete([FromQuery] DeleteCandidateCommand deleteCandidateCommand,int id)
@@ -117,7 +111,6 @@ namespace CandidateManagemente.Web.Controllers
             {
                 deleteCandidateCommand.idCandidate = id;
                 var request = await _mediator.Send(deleteCandidateCommand);
-                //return View(_mapper.Map<CandidateCompleteVM>(convertListToVM.FirstOrDefault()));
                 return RedirectToAction(nameof(Index));
             }
             catch

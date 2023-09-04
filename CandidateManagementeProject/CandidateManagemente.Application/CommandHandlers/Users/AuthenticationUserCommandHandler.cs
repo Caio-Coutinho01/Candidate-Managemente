@@ -22,7 +22,7 @@ namespace CandidateManagemente.Application.CommandHandlers.Users
                 return new Result { IsSuccess = false, Message = "Email ou senha incorreto!" };
             }
 
-            return new Result { IsSuccess = true, Message = "" };
+            return new Result { IsSuccess = true, Message = "", Name = user.Name, IdUser = user.IdUser};
         }
     }
 }

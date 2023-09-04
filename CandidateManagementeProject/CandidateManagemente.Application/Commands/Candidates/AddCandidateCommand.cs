@@ -5,6 +5,7 @@ namespace CandidateManagemente.Application.Commands.Candidates
 {
     public class AddCandidateCommand : IRequest<string>
     {
+        public int IdUser { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }

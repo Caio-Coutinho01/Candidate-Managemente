@@ -13,7 +13,6 @@
 </head>
 <body>
     <div class="container">
-        <a asp-action="Create" class="btn btn-primary float-right">Create New</a>
         <h2 class="font-weight-bold">List of candidates</h2>
         <ul class="responsive-table">
             <li class="table-header">
@@ -28,7 +27,7 @@
                 <li class="table-row">
                     <div class="col" data-label="First Name">@d.Name</div>
                     <div class="col" data-label="Last Name">@d.Surname</div>
-                    <div class="col" data-label="BirthDate">@d.BirthDate</div>
+                    <div class="col" data-label="BirthDate">@d.BirthDate.ToShortDateString()</div>
                     <div class="col" data-label="Email">@d.Email</div>
                     <div class="col" data-label="Actions">
                         <a asp-action="Edit" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-pen-to-square mr-2" title="Edit"></i></a>
@@ -41,6 +40,12 @@
             }
         </ul>
         @await Html.PartialAsync("_ModalGeneric")
+
+        <div class="add-button-container">
+            <a asp-action="Create" class="btn btn-primary add-button">
+                <span class="add-icon">+</span> Add New
+            </a>
+        </div>
     </div>
     <script src="~/js/candidate-details.js"></script>
 </body>

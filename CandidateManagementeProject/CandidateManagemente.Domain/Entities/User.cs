@@ -8,5 +8,6 @@ namespace CandidateManagemente.Domain.Entities
         public string Surname { get; set; }
 
         public virtual Credentials Credentials { get; set; }
+        public ICollection<Candidates> Candidates { get; set; }
     }
 }

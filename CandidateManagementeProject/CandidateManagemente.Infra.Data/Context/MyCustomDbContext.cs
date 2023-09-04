@@ -21,6 +21,10 @@ namespace CandidateManagemente.Infra.Data.Context
                 entity.ToTable("Candidates");
                 entity.HasKey(p => p.IdCandidate);
                 entity.HasAlternateKey(p => p.Email);
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Candidates)
+                    .HasForeignKey(d => d.IdUser)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Experiences>(entity =>

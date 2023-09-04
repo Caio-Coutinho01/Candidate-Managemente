@@ -84,3 +84,31 @@ h2 {
             text-align: right;
         }
 }
+
+.add-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.add-icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.responsive-table .table-header .col:last-child,
+.responsive-table .table-row .col:last-child {
+    flex-basis: 15%; 
+    flex-shrink: 1;
+    flex-grow: 0;
+    text-align: center;
+}

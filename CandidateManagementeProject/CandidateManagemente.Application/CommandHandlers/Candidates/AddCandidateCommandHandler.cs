@@ -8,18 +8,19 @@ namespace CandidateManagemente.Application.CommandHandlers.Candidates
     public class AddCandidateCommandHandler : IRequestHandler<AddCandidateCommand, string>
     {
         private readonly ICandidateRepository _candidateRepository;
-        public AddCandidateCommandHandler(ICandidateRepository candidateRepository)
+        public AddCandidateCommandHandler(ICandidateRepository candidateRepository, IAuthenticationRepository authenticationRepository)
         {
-            _candidateRepository = candidateRepository;
+            _candidateRepository = candidateRepository ?? throw new ArgumentNullException(nameof(candidateRepository));
         }
 
-        public Task<string> Handle(AddCandidateCommand command, CancellationToken cancellationToken)
+        public async Task<string> Handle(AddCandidateCommand command, CancellationToken cancellationToken)
         {
             var notification = "";
             try
             {
                 var candidate = new Domain.Entities.Candidates
                 {
+                    IdUser = command.IdUser,
                     Name = command.Name,
                     Surname = command.Surname,
                     BirthDate = command.BirthDate,
@@ -43,14 +44,14 @@ namespace CandidateManagemente.Application.CommandHandlers.Candidates
                 if (command.CurrentJob == true)
                     experiences.EndDate = null;
 
-                _candidateRepository.AddExperience(experiences);
+               await _candidateRepository.AddExperience(experiences);
                 notification = "Candidate successfully added";
-                return Task.FromResult(notification);
+                return await Task.FromResult(notification);
             }
             catch (Exception ex)
             {
                 notification = " There was an error registering the candidate";
-                return Task.FromResult(notification);
+                return await Task.FromResult(notification);
             }
         }
     }

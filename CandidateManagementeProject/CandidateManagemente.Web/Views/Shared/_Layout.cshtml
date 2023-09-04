@@ -1,34 +1,49 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var UserAuthentication = User.Identity.IsAuthenticated;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CandidateManagemente.Web</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/bootstrap.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/my-login.css">
+    <link rel="stylesheet" type="text/css" href="~/css/input-page-layout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CandidateManagemente.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Candidate" asp-action="Index">Candidates</a>
-                        </li>
-                    </ul>
+    <nav class="navbar navbar-expand-lg">
+        @if (UserAuthentication)
+        {
+            <button id="sidebarToggle" class="btn btn-link mr-3" style="color: white;"><i class="fa-solid fa-bars fa-lg" style="color: #fafafa;"></i></button>
+        }
+        <a class="navbar-brand" href="#">Candidate Management</a>
+    </nav>
+    @if (UserAuthentication)
+    {
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <h4>Bem-vindo, <span id="username">@User.Identity.Name</span></h4>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="/Candidate" class="custom-link">Candidate</a>
+                    </li>
+                </ul>
+                <div class="logout-container list-group-item">
+                    <form method="post" asp-action="Logout" asp-controller="Auth">
+                        <button type="submit" class="custom-button">Logout</button>
+                    </form>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    }
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -36,10 +51,10 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/popper.js"></script>
     <script src="~/js/my-login.js"></script>
     <script src="~/js/input-page-layout.js"></script>
+    <script src="~/js/site.js"></script>
 
     @await Html.PartialAsync("_ValidationScriptsPartial");
     @await RenderSectionAsync("Scripts", required: false)

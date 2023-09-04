@@ -23,17 +23,21 @@ namespace CandidateManagemente.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Auth/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.LoginPath = "/Home/Index"; 
+                options.AccessDeniedPath = "/Home/Index";
+                options.SlidingExpiration = true;  
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60); 
             });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+
+            services.AddAuthorization();
 
             #region MediatR
             services.AddMediatR(typeof(AddCandidateCommand));
@@ -75,11 +79,10 @@ namespace CandidateManagemente.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
@@ -88,5 +91,6 @@ namespace CandidateManagemente.Web
                     pattern: "{controller=Home}/{action=Index}");
             });
         }
+
     }
 }

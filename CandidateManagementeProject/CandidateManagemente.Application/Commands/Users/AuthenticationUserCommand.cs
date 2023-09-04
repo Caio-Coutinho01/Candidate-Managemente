@@ -17,5 +17,7 @@ namespace CandidateManagemente.Application.Commands.Users
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
+        public string Name { get; set; }
+        public int IdUser { get; set; }
     }
 }

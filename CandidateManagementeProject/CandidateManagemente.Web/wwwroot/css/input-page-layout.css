@@ -17,3 +17,67 @@ label{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight:500;
 }
+
+.navbar {
+    background-color: #1a1a2e;
+    z-index: 1000;
+}
+
+.nav-link, .navbar-brand {
+    color: white !important;
+}
+
+.sidebar {
+    background-color: #1a1a2e;
+    color: white;
+    position: fixed;
+    top: 50px;
+    left: -250px;
+    height: calc(100% - 50px); 
+    width: 250px;
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+    .sidebar.show {
+        left: 0;
+    }
+
+.sidebar-header {
+    padding: 20px;
+}
+
+.list-group, .list-group-item {
+    color: white;
+    font-size: 20px;
+    background-color: #1a1a2e;
+}
+
+.custom-link, .custom-button {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    color: white;
+}
+
+.custom-button:focus {
+        outline: none;
+        box-shadow: none;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.logout-container {
+    margin-top: auto;
+}
+
+.sidebar-header h4 {
+    white-space: normal;
+    word-wrap: break-word;
+}
