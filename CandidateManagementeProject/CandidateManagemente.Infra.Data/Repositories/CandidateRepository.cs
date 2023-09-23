@@ -15,20 +15,23 @@ namespace CandidateManagemente.Infra.Data.Repositories
         {
             _context = new DbContextOptions<MyCustomDbContext>();
         }
-        public List<Candidates> GetAll()
+        public List<Candidates> GetAllCandidates(int IdUser)
         {
             using (var date = new MyCustomDbContext(_context))
             {
-                return date.Set<Candidates>().AsNoTracking().ToList();
+                return date.Set<Candidates>()
+                    .AsNoTracking()
+                    .Where(c => c.IdUser == IdUser)
+                    .ToList();
             }
         }
-        public List<OCandidateExperiences> GetId(int id)
+        public List<OCandidateExperiences> GetId(int IdCandidate, int IdUser)
         {
             using (var date = new MyCustomDbContext(_context))
             {
                 var query = from c in date.Candidates
                             join exp in date.Experiences on c.IdCandidate equals exp.IdCandidate
-                            where c.IdCandidate.Equals(id)
+                            where c.IdCandidate.Equals(IdCandidate) && c.IdUser.Equals(IdUser)
                             select new OCandidateExperiences
                             {
                                 IdCandidate = c.IdCandidate,

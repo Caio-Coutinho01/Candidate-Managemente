@@ -5,8 +5,8 @@ namespace CandidateManagemente.Domain.Interface
 {
     public interface ICandidateRepository
     {
-        List<Candidates> GetAll();
-        List<OCandidateExperiences> GetId(int Id);
+        List<Candidates> GetAllCandidates(int IdUser);
+        List<OCandidateExperiences> GetId(int IdCandidate, int IdUser);
         int AddCandidate(Candidates obj);
         Task AddExperience(Experiences obj);
         string Update(OCandidateExperiences obj);

@@ -14,6 +14,10 @@
 <body>
     <div class="container">
         <h2 class="font-weight-bold">List of candidates</h2>
+        <div class="input-group" style="padding:32px; max-width:40%">
+            <input type="search" class="form-control rounded" placeholder="Search email or name" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-outline-primary">search</button>
+        </div>
         <ul class="responsive-table">
             <li class="table-header">
                 <div class="col">First Name</div>
@@ -30,11 +34,15 @@
                     <div class="col" data-label="BirthDate">@d.BirthDate.ToShortDateString()</div>
                     <div class="col" data-label="Email">@d.Email</div>
                     <div class="col" data-label="Actions">
-                        <a asp-action="Edit" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-pen-to-square mr-2" title="Edit"></i></a>
-                        <a href="@Url.Action("Details", new { id = d.IdCandidate })" class="modal-link" data-modal-title="Candidate Details">
+                        <a asp-action="Edit" asp-route-IdCandidate="@d.IdCandidate"><i class="fa-solid fa-pen-to-square mr-2" title="Edit"></i></a>
+                        <a href="@Url.Action("Details", new { idCandidate = d.IdCandidate })" class="modal-link" data-modal-title="Candidate Details">
                             <i class="fa-solid fa-circle-info mr-2" title="Detail"></i>
                         </a>
-                        <a asp-action="Delete" asp-route-id="@d.IdCandidate"><i class="fa-solid fa-trash mr-2" title="Delete"></i></a>
+                        <form asp-action="Delete" asp-route-IdCandidate="@d.IdCandidate" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-link p-0 m-0" title="Delete">
+                                <i class="fa-solid fa-trash mr-2"></i>
+                            </button>
+                        </form>
                     </div>
                 </li>
             }

@@ -3,30 +3,31 @@ using CandidateManagemente.Application.Commands.Candidates;
 using CandidateManagemente.Application.Queries.Candidates;
 using CandidateManagemente.Web.ViewModel;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace CandidateManagemente.Web.Controllers
 {
     public class CandidateController : Controller
     {
         private readonly IMediator _mediator;
-        IMapper _mapper;
+        private readonly IMapper _mapper;
+        private readonly int _idUser;
 
-        public CandidateController(IMediator mediator, IMapper mapper)
+        public CandidateController(IMediator mediator, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
-            _mediator = mediator;
-            _mapper = mapper;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _idUser = int.Parse(httpContextAccessor.HttpContext.User.FindFirst("IdUser").Value);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             try
             {
-                var getStudentQuery = new GetCandidatesQuery();
+                var response = await _mediator.Send(new GetCandidateCommand { IdUser = _idUser});
 
-                return View(await _mediator.Send(getStudentQuery));
+                return View(response.Candidates);
             }
             catch (System.Exception ex)
             {
@@ -35,13 +36,13 @@ namespace CandidateManagemente.Web.Controllers
 
         }
 
-        public async Task<IActionResult> Details([FromQuery] GetCandidateDetail getCandidateId, int Id)
+        public async Task<IActionResult> Details(int idCandidate)
         {
-            getCandidateId.Id = Id;
-            var result = _mapper.Map<List<CandidateCompleteVM>>(await _mediator.Send(getCandidateId)).FirstOrDefault();
+            var response = await _mediator.Send(new GetCandidateCommand { IdUser = _idUser, IdCandidate = idCandidate });
 
-            if (result != null)
+            if (response.CandidateExperiences != null)
             {
+                var result = _mapper.Map<List<CandidateCompleteVM>>(response.CandidateExperiences).FirstOrDefault();
                 return PartialView("_DetailsPartial", result);
             }
 
@@ -61,8 +62,7 @@ namespace CandidateManagemente.Web.Controllers
         {
             try
             {
-                var idUser = HttpContext.User.FindFirst("IdUser").Value;
-                command.IdUser = int.Parse(idUser);
+                command.IdUser = _idUser;
                 var request = await _mediator.Send(command);
                 return RedirectToAction(nameof(Index));
             }
@@ -72,11 +72,11 @@ namespace CandidateManagemente.Web.Controllers
             }
         }
 
-        public async Task<IActionResult> Edit( int Id)
+        public async Task<IActionResult> Edit(int IdCandidate)
         {
-            GetCandidateDetail getCandidateId = new GetCandidateDetail();
-            getCandidateId.Id = Id;
-            var convertListToVM =_mapper.Map<List<CandidateCompleteVM>>(await _mediator.Send(getCandidateId));
+            var response = await _mediator.Send(new GetCandidateCommand { IdUser = _idUser, IdCandidate = IdCandidate });
+
+            var convertListToVM =_mapper.Map<List<CandidateCompleteVM>>(response.CandidateExperiences);
             return View(_mapper.Map<CandidateCompleteVM>(convertListToVM.FirstOrDefault()));
         }
 
@@ -96,21 +96,13 @@ namespace CandidateManagemente.Web.Controllers
             }
         }
 
-        public async Task<IActionResult> Delete(int Id)
-        {
-            GetCandidateDetail getCandidateId = new GetCandidateDetail();
-            getCandidateId.Id = Id;
-            return View(_mapper.Map<List<CandidateCompleteVM>>(await _mediator.Send(getCandidateId)));
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete([FromQuery] DeleteCandidateCommand deleteCandidateCommand,int id)
+        public async Task<IActionResult> Delete(int IdCandidate)
         {
             try
             {
-                deleteCandidateCommand.idCandidate = id;
-                var request = await _mediator.Send(deleteCandidateCommand);
+                var request = await _mediator.Send(new DeleteCandidateCommand {idCandidate = IdCandidate });
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -118,5 +110,19 @@ namespace CandidateManagemente.Web.Controllers
                 return View();
             }
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> FindCandidate()
+        //{
+        //    try
+        //    {
+        //        var response = await _mediator.Send(new GetCandidateCommand { IdUser = _idUser });
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }
